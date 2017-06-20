@@ -1,7 +1,7 @@
 from OpenSSL import crypto
 
 Type = crypto.TYPE_RSA
-bits = 32
+bits = 1024
 
 
 def createKeyPair(type, bits):
@@ -12,7 +12,7 @@ def createKeyPair(type, bits):
 
 
 def saveKey(pkey):
-    """Save Key Pair to text file"""
+    """Save Key Pair to file"""
     prkey = crypto.dump_privatekey(crypto.FILETYPE_PEM, pkey)
     with open("PrivateKey.pem", "w",encoding='UTF-8') as text_file:
         print(prkey.decode("UTF-8"), file=text_file)
@@ -25,13 +25,14 @@ def saveKey(pkey):
 def Encrypt(text, keyFileName, type):
     """Encode Text"""
     if type == 'Public':
-        with open(keyFileName, "r",) as input:
-          publicKey = crypto.load_publickey(crypto.FILETYPE_PEM, input.read())
-          return  crypto.sign(publicKey,"Test Encode by Public Key","sha1")
+        #rsa = RSA.load_pub_key(keyFileName)
+        #encrypted = rsa.public_encrypt(text, RSA.pkcs1_oaep_padding)
+        #print (encrypted.encode('UTF-8'))
+        print(type)
     if type == 'Private':
         with open(keyFileName, "r",) as input:
           privateKey = crypto.load_privatekey(crypto.FILETYPE_PEM, input.read())
-          return  crypto.sign(publicKey,"Test Encode by Private Key","sha1")
+          #return  crypto.sign(publicKey,"Test Encode by Private Key","sha1")
 
 def Decrypt(signature, keyFileName, type):
     """Decode Text"""
