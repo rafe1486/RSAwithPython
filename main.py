@@ -1,13 +1,12 @@
 from OpenSSL import crypto
 
-Type = crypto.TYPE_RSA
-bits = 32
+bits = 1024
 
 
-def createKeyPair(type, bits):
+def createKeyPair(bits):
     """Create Key Pair"""
     pkey = crypto.PKey()
-    pkey.generate_key(type, bits)
+    pkey.generate_key(crypto.TYPE_RSA, bits)
     return pkey
 
 
@@ -47,5 +46,5 @@ def Decrypt(signature, keyFileName, type):
 
 
 
-k = saveKey(createKeyPair(Type, bits))
+#k = saveKey(createKeyPair(bits))
 #print(Encrypt('Test', 'PublicKey.pem', 'Public'))
