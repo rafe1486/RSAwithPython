@@ -21,9 +21,9 @@ def saveKey(pkey):
         print(pukey.decode("UTF-8"), file=text_file)
     return 0
 
-
+"""
 def Encrypt(text, keyFileName, type):
-    """Encode Text"""
+    #Encode Text
     if type == 'Public':
         #rsa = RSA.load_pub_key(keyFileName)
         #encrypted = rsa.public_encrypt(text, RSA.pkcs1_oaep_padding)
@@ -35,7 +35,7 @@ def Encrypt(text, keyFileName, type):
           #return  crypto.sign(publicKey,"Test Encode by Private Key","sha1")
 
 def Decrypt(signature, keyFileName, type):
-    """Decode Text"""
+    #Decode Text
     if type == 'Public':
         with open(keyFileName, "r",) as input:
           publicKey = crypto.load_publickey(crypto.FILETYPE_PEM, input.read())
@@ -43,9 +43,9 @@ def Decrypt(signature, keyFileName, type):
     if type == 'Private':
         with open(keyFileName, "r",) as input:
           privateKey = crypto.load_privatekey(crypto.FILETYPE_PEM, input.read())
-
+"""
 
 
 
 k = saveKey(createKeyPair(Type, bits))
-print(Encrypt('Test', 'PublicKey.pem', 'Public'))
+#print(Encrypt('Test', 'PublicKey.pem', 'Public'))
