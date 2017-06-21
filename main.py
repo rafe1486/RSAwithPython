@@ -1,7 +1,7 @@
 from OpenSSL import crypto
 
 Type = crypto.TYPE_RSA
-bits = 1024
+bits = 32
 
 
 def createKeyPair(type, bits):

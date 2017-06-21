@@ -10,13 +10,13 @@ print(rsakey.publickey().exportKey().decode('utf-8'))"""
 with open('Publickey.pem','r') as privatefile:
     keydata = privatefile.read()
     rsakey = RSA.importKey(keydata)
-    cipher = PKCS1_OAEP.new(rsakey.publickey())
-    ciphertext = cipher.encrypt(message)
+    #cipher = PKCS1_OAEP.new(rsakey.publickey())
+    ciphertext = rsakey.encrypt(message,32)
     with open('Ciper','wb') as text_file:
         text_file.write(ciphertext)
     print("ENcryp")
     print(" ")
-
+"""
 with open('PrivateKey.pem','rb') as publicfile:
     keydata = publicfile.read()
     rsakey = RSA.importKey(keydata)
@@ -26,3 +26,4 @@ with open('PrivateKey.pem','rb') as publicfile:
         print(ciphertext)
         paintext = cipher.decrypt(ciphertext)
         print(paintext.decode('utf-8', 'ignore'))
+"""

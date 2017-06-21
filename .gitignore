@@ -1,4 +1,4 @@
 .vscode
 .vscode/*
-privateKey.pem
-publicKey.pem
+privateKey.*
+publicKey.*
