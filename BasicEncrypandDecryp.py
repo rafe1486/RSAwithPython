@@ -2,7 +2,7 @@ from Crypto.PublicKey import RSA
 import sys
 import main
 
-bits = 64
+bits = 32
 message = '123456789'
 print("msg :",message)
 
