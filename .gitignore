@@ -1,4 +1,6 @@
 .vscode
-.vscode/*
 privateKey.*
 publicKey.*
+cipher
+__pycache__
+__pycache__/*
