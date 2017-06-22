@@ -26,8 +26,6 @@ with open('Publickey.pem', 'rb') as file:
 
     if (checksize(keySize, messageSize)):
         ciphertext = rsakey.encrypt(message, 0)[-1]
-        print(ciphertext.decode('utf-8', 'ignore'))
-        print("ENcryp")
     else:
         keySize +=1
         keySize /=8
@@ -35,12 +33,8 @@ with open('Publickey.pem', 'rb') as file:
         ciphertext =b''
         message = [message[i:i+keySize] for i in range(0, len(message), keySize)]
         for msg in message :
-            print("keySize: ",keySize)
-            print("msg : ",msg)
             ciphertext += rsakey.encrypt(msg,0)[-1]
             print(ciphertext)
-        print("ENcryp")
-        print("KeySize < MsgSize")
     #with open('Ciper','w') as text_file:
        # print (ciphertext.decode('UTF-8'),file=text_file)
     print()
@@ -49,6 +43,7 @@ with open('PrivateKey.pem', 'rb') as file:
     keydata = file.read()
     rsakey = RSA.importKey(keydata)
     keySize = rsakey.size()
+    with open(cipher)
     cipherSize = len(ciphertext)
 
     if (checksize(keySize, cipherSize)):
