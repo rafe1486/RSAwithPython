@@ -1,6 +1,6 @@
 from OpenSSL import crypto
 
-bits = 1024
+bits = 32
 
 
 def createKeyPair(bits):
