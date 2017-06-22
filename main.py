@@ -18,7 +18,8 @@ def saveKey(pkey):
     pukey = crypto.dump_publickey(crypto.FILETYPE_PEM, pkey)
     with open("PublicKey.pem", "w",encoding='UTF-8') as text_file:
         print(pukey.decode("UTF-8"), file=text_file)
-    return 0
+    print("Complete Save ke")
+    return True
 
 """
 def Encrypt(text, keyFileName, type):
