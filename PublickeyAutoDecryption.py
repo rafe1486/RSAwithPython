@@ -80,12 +80,20 @@ print("d : ",d)
 print("n : ",n)
 print("p : ",p)
 print("q : ",q)
+print("phi : ",phiOfn)
 
 with open('FakePrivateKey.pem', 'rb') as file:
     keydata = file.read()
     rsakey = RSA.importKey(keydata)
     keySize = rsakey.size()
     rsakey.key.d = d
+    rsakey.key.n = n
+    rsakey.key.p = p
+    rsakey.key.q = q
+    rsakey.key.e = e
+    
+    print(rsakey.key.u)
+    print(dir(rsakey.key))
     with open('cipher','rb') as text_file:
       ciphertext = text_file.read()
     cipherSize = len(ciphertext)

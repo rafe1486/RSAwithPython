@@ -1,7 +1,7 @@
 from Crypto.PublicKey import RSA
 import main
 
-bits = 64
+bits = 32
 message = '123456789'
 print("msg :",message)
 
@@ -54,3 +54,10 @@ with open('PrivateKey.pem', 'rb') as file:
         for ctext in  ciphertext :
             text += rsakey.decrypt(ctext)
         print(text.decode('utf-8', 'ignore'))
+
+print("rsakey.key.e : ",rsakey.key.e)
+print("rsakey.key.d : ",rsakey.key.d)
+print("rsakey.key.n : ",rsakey.key.n)
+print("rsakey.key.p : ",rsakey.key.p)
+print("rsakey.key.q : ",rsakey.key.q)
+print("rsakey.key.u : ",rsakey.key.u)
