@@ -2,7 +2,7 @@ from Crypto.PublicKey import RSA
 import main
 
 bits = 32
-message = '123456789'
+message = '123456789100'
 print("msg :",message)
 
 def checksize(keySize, messageSize):
@@ -13,7 +13,7 @@ def checksize(keySize, messageSize):
     if(keySize < messageSize):
         return False
 
-main.saveKey(main.createKeyPair(bits))
+#main.saveKey(main.createKeyPair(bits))
 with open('Publickey.pem', 'rb') as file:
     keydata = file.read()
     rsakey = RSA.importKey(keydata)
@@ -45,6 +45,7 @@ with open('PrivateKey.pem', 'rb') as file:
     cipherSize = len(ciphertext)
     if (checksize(keySize, cipherSize)):
        text = rsakey.decrypt(ciphertext)
+       print(text.decode('utf-8', 'ignore'))
     else:
         keySize +=1
         keySize /=8
@@ -54,7 +55,8 @@ with open('PrivateKey.pem', 'rb') as file:
         for ctext in  ciphertext :
             text += rsakey.decrypt(ctext)
         print(text.decode('utf-8', 'ignore'))
-
+print("Key Size :",keySize)
+print("Cipher Size :",cipherSize)
 print("rsakey.key.e : ",rsakey.key.e)
 print("rsakey.key.d : ",rsakey.key.d)
 print("rsakey.key.n : ",rsakey.key.n)

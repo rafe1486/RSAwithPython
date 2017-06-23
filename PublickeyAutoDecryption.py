@@ -1,5 +1,7 @@
 from Crypto.PublicKey import RSA
-import fractions 
+import fractions
+from OpenSSL import crypto
+from Crypto.Util.number import inverse
 import main
 import sys
 sys.setrecursionlimit(1000000)
@@ -8,26 +10,30 @@ sys.setrecursionlimit(1000000)
 def checksize(keySize, messageSize):
     keySize /=8
     keySize =int(keySize)
-    print("Key Size : ",keySize)
-    print("Msg Size : ",messageSize)
     if(keySize >= messageSize):
         return True
     if(keySize < messageSize):
         return False
+    print("keySize :",keySize+1)
 
 with open('PublicKey.pem', 'rb') as file:
     keydata = file.read()
-    rsakey = RSA.importKey(keydata)
-    keySize = rsakey.size()
-    with open('cipher','rb') as cipherFile:
-        ciphertext = cipherFile.read()
-    cipherSize = len(ciphertext)
-    print("cipherSize :",cipherSize*8)
-    print("keySize :",keySize+1)
-    #print(dir(rsakey.key))
-    #print(dir(rsakey.keydata))
+    rsaPublicKey = RSA.importKey(keydata)
+    publicKeySize = rsaPublicKey.size()
+    print("Public key size :",publicKeySize)
 
-    """
+def saveKey(pkey):
+    """Save Key Pair to file"""
+    prkey = crypto.dump_privatekey(crypto.FILETYPE_PEM, pkey)
+    with open("FakePrivateKey.pem", "w",encoding='UTF-8') as text_file:
+        print(prkey.decode("UTF-8"), file=text_file)
+    pukey = crypto.dump_publickey(crypto.FILETYPE_PEM, pkey)
+    print("Complete Save Fake key")
+    return True
+
+k = saveKey(main.createKeyPair(publicKeySize+1))
+
+"""
         
         ed = 1 mod phi(n)
         1.find phi(n)
@@ -54,12 +60,13 @@ def totient(n):
             totient -= totient//p # integer division
     return totient
 
-n = rsakey.key.n
-e = rsakey.key.e
+n = rsaPublicKey.key.n
+e = rsaPublicKey.key.e
 primeFactor = primes(n)
-p = primeFactor[0]
-q = primeFactor[1]
+p = primeFactor[1]
+q = primeFactor[0]
 phiOfn = totient(n)
+
 def egcd(b, n):
     x0, x1, y0, y1 = 1, 0, 0, 1
     while n != 0:
@@ -82,21 +89,28 @@ print("p : ",p)
 print("q : ",q)
 print("phi : ",phiOfn)
 
+
+
+
 with open('FakePrivateKey.pem', 'rb') as file:
     keydata = file.read()
     rsakey = RSA.importKey(keydata)
+    #rsakey = RSA.construct([3983712949, 65537])
     keySize = rsakey.size()
+    
     rsakey.key.d = d
     rsakey.key.n = n
     rsakey.key.p = p
     rsakey.key.q = q
     rsakey.key.e = e
+    rsakey.key.u = inverse(p, q)
     
-    print(rsakey.key.u)
-    print(dir(rsakey.key))
+    print("u : ",rsakey.key.u)
+    #print(dir(rsakey.key))
+    
     with open('cipher','rb') as text_file:
       ciphertext = text_file.read()
-    cipherSize = len(ciphertext)
+      cipherSize = len(ciphertext)
     if (checksize(keySize, cipherSize)):
        text = rsakey.decrypt(ciphertext)
     else:
@@ -108,3 +122,6 @@ with open('FakePrivateKey.pem', 'rb') as file:
         for ctext in  ciphertext :
             text += rsakey.decrypt(ctext)
         print(text.decode('utf-8', 'ignore'))
+
+print("Key Size :",keySize)
+print("Cipher Size :",cipherSize)
