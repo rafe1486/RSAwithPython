@@ -14,7 +14,7 @@ def checksize(keySize, messageSize):
         return False
 
 main.saveKey(main.createKeyPair(bits))
-with open('Publickey.pem', 'rb') as file:
+with open('PublicKey.pem', 'rb') as file:
     keydata = file.read()
     rsakey = RSA.importKey(keydata)
     keySize = rsakey.size()
