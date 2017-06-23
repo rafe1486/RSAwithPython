@@ -1,7 +1,5 @@
 .vscode
 *.pem
-privateKey.*
-publicKey.*
 Cipher
 cipher
 __pycache__
