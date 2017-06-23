@@ -1,7 +1,7 @@
 from Crypto.PublicKey import RSA
 import main
 
-bits = 64
+bits = 1024
 message = '123456789100'
 print("msg :",message)
 

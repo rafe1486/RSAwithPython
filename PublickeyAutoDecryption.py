@@ -1,5 +1,4 @@
 from Crypto.PublicKey import RSA
-import fractions
 from OpenSSL import crypto
 from Crypto.Util.number import inverse
 import main
@@ -20,7 +19,7 @@ with open('PublicKey.pem', 'rb') as file:
     keydata = file.read()
     rsaPublicKey = RSA.importKey(keydata)
     publicKeySize = rsaPublicKey.size()
-    print("Public key size :",publicKeySize)
+    print("Public key size :",publicKeySize+1)
 
 # def saveKey(pkey):
 #     """Save Key Pair to file"""
