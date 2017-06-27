@@ -1,7 +1,7 @@
 from Crypto.PublicKey import RSA
 import main
 
-bits = 1024
+bits = 16
 message = '123456789100'
 print("msg :",message)
 
@@ -13,7 +13,7 @@ def checksize(keySize, messageSize):
     if(keySize < messageSize):
         return False
 
-main.saveKey(main.createKeyPair(bits))
+#main.saveKey(main.createKeyPair(bits))
 with open('PublicKey.pem', 'rb') as file:
     keydata = file.read()
     rsakey = RSA.importKey(keydata)
