@@ -7,11 +7,12 @@ def pow_mod(a, b, c):
             number = number * a % c
         b >>= 1
         a = a * a % c
-        print("-- Round -- ",count," --")
+    return number
+'''        print("-- Round -- ",count," --")
         print("a = ",a)
         print("b = ",b)
         print("c = ",c)
-        count+=1
-    return number
+        count+=1'''
+    
 
-print (pow_mod(9,87654,321))
+#print (pow_mod(9,87654,321))
