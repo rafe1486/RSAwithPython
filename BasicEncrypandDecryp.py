@@ -25,7 +25,7 @@ else:
         
 with open('cipher','wb') as text_file:
     text_file.write(ciphertext)
-print()
+print(ciphertext.decode("utf-8","ignore"))
 
 rsakey = key.importKey('PrivateKey.pem')
 keySize = rsakey.size()
