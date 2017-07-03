@@ -9,65 +9,68 @@ messages = 'ABCD'
 print("msg :", messages)
 
 """Generate Key """
-key.saveKey(key.createKeyPair(bits))
+#key.saveKey(key.createKeyPair(bits))
 
+"""Encryp with Publickey"""
 rsakey = key.importKey('PublicKey.pem')
-keySize = key.getKeySize(rsakey)
 keyLength = key.getHalfofKeyLength(rsakey)
 messageLength = msg.getLength(messages)
-
-print("Key Size :",keySize)
-print("Key Length :",keyLength)
-print("Msg Length :",messageLength)
 
 messages = [messages[i:i+keyLength] for i in range(0, messageLength, keyLength)]
 ciphertext = ""
 for message in messages :
     msgtoDec = msg.msgtoDec(message)
     ciphertext += str(fastMod.pow_mod(msgtoDec, rsakey.key.e, rsakey.key.n))+" "
-print(ciphertext)
-# msgtoDec = msg.msgtoDec(message)
-# print("msgtohex", msgtoDec)
 
-# ciphertext = fastMod.pow_mod(msgtoDec, rsakey.key.e, rsakey.key.n)
-# print("cipher after Encryp", ciphertext)
+print("ciphertext is :",ciphertext)
 
+"""chosen cipher text"""
+def randomR(bits, n):
+    """
+    random R between 1 - e and R is relative prime with n
+    """
+    num = random.randint(1, n)
+    while(number.GCD(num, rsakey.key.n) != 1):
+        num = random.randint(1, n)
+    return num
 
-# """chosen cipher text"""
+r = randomR(bits, rsakey.key.e)
+print("r is: ", r)
 
+"""Times cipher by r**e % n"""
+ciphertext = ciphertext.split(" ")
+newciphertext = ""
+for ctext in ciphertext :
+    if ctext != '':
+        ctext = int(ctext)
+        newciphertext += str((ctext*fastMod.pow_mod(r, rsakey.key.e, rsakey.key.n)))+" "
+ciphertext = newciphertext
+print("cipher times r :", ciphertext)
 
-# def randomR(bits, n):
-#     num = random.randint(1, n)
-#     while(number.GCD(num, rsakey.key.n) == 1):
-#         num = random.randint(1, n)
-#     return num
+"""Decryp with PrivateKey"""
+rsakey = key.importKey('PrivateKey.pem')
+keyLength = key.getHalfofKeyLength(rsakey)
+ciphertext = ciphertext.split(" ")
+text = ""
+for ctext in ciphertext :
+    if ctext != '':
+        ctext = int(ctext)
+        text += str((fastMod.pow_mod(ctext, rsakey.key.d, rsakey.key.n)))+" "
+print("msg after decryp (int format) :", text)
+decryptext = text.split(" ")
+stringText = ""
+for strtext in decryptext :
+    if strtext != '':
+        strtext = int(strtext)
+        print(strtext.to_bytes(key.getKeyLength(rsakey), byteorder="little"))
+        stringText += strtext.to_bytes(key.getKeyLength(rsakey), byteorder="little").decode("utf-8","ignore")
+print("msg after decryp (String format) :", stringText)
 
-
-# r = randomR(bits, rsakey.key.e)
-# print("r is: ", r)
-
-# ciphertext = ciphertext * fastMod.pow_mod(r, rsakey.key.e, rsakey.key.n)
-# print("cipher times r", ciphertext)
-
-
-# rsakey = key.importKey('PrivateKey.pem')
-
-# keySize = key.getKeySize(rsakey)
-
-# text = fastMod.pow_mod(ciphertext, rsakey.key.d, rsakey.key.n)
-# print("cipher after decrypt", text)
-# text = text / r
-# print("cipher after devide by r", text)
-# text = msg.dectoMsg(text, rsakey)
-# print("decryp", text.decode('utf-8', 'ignore'))
-
-# """Show Debug
-# print("Key Size :",keySize)
-# #print("Cipher Size :",cipherSize)
-# print("rsakey.key.e : ",rsakey.key.e)
-# print("rsakey.key.d : ",rsakey.key.d)
-# print("rsakey.key.n : ",rsakey.key.n)
-# print("rsakey.key.p : ",rsakey.key.p)
-# print("rsakey.key.q : ",rsakey.key.q)
-# print("rsakey.key.u : ",rsakey.key.u)
-# """
+"""Devide decryp message by r"""
+text = text.split(" ")
+messages=""
+for message in text :
+    if message != '':
+        message = int(message)/r
+        messages += msg.dectoMsg(message,rsakey)
+print("msg :", messages)

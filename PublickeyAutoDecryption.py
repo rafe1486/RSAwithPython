@@ -1,36 +1,14 @@
 from Crypto.PublicKey import RSA
 from OpenSSL import crypto
 from Crypto.Util.number import inverse
-import main
+import include.key as key
+import include.msg as msg
 import sys
 sys.setrecursionlimit(1000000)
 
-
-def checksize(keySize, messageSize):
-    keySize /=8
-    keySize =int(keySize)
-    if(keySize >= messageSize):
-        return True
-    if(keySize < messageSize):
-        return False
-    print("keySize :",keySize+1)
-
-with open('PublicKey.pem', 'rb') as file:
-    keydata = file.read()
-    rsaPublicKey = RSA.importKey(keydata)
-    publicKeySize = rsaPublicKey.size()
-    print("Public key size :",publicKeySize+1)
-
-# def saveKey(pkey):
-#     """Save Key Pair to file"""
-#     prkey = crypto.dump_privatekey(crypto.FILETYPE_PEM, pkey)
-#     with open("FakePrivateKey.pem", "w",encoding='UTF-8') as text_file:
-#         print(prkey.decode("UTF-8"), file=text_file)
-#     pukey = crypto.dump_publickey(crypto.FILETYPE_PEM, pkey)
-#     print("Complete Save Fake key")
-#     return True
-
-# k = saveKey(main.createKeyPair(publicKeySize+1))
+rsaPublicKey = key.importKey('PublicKey.pem')
+publicKeySize = rsaPublicKey.size()
+print("Public key size :",publicKeySize+1)
 
 """
         
@@ -80,7 +58,7 @@ print("rsakey.key.u : ",rsakey.key.u)
 with open('cipher','rb') as text_file:
     ciphertext = text_file.read()
     cipherSize = len(ciphertext)
-if (checksize(keySize, cipherSize)):
+if (msg.checkSize(rsakey, cipherSize)):
     text = rsakey.decrypt(ciphertext)
 else:
     keySize +=1

@@ -14,5 +14,4 @@ def pow_mod(a, b, c):
         print("c = ",c)
         count+=1'''
     
-
 #print (pow_mod(9,87654,321))

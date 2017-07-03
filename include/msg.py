@@ -1,4 +1,4 @@
-import key
+import include.key as key
 
 def checkSize(rsakey, messageSize):
     """
@@ -29,7 +29,7 @@ def msgtoDec(msg):
 
 def dectoMsg(dec,rsakey):
     if(isinstance(dec, int)):
-        return dec.to_bytes(key.getKeyLength(rsakey), byteorder="little")
+        return dec.to_bytes(key.getHalfofKeyLength(rsakey), byteorder="little").decode('utf-8', 'ignore')
     else:
         dec = int(dec)
-        return dec.to_bytes(key.getKeyLength(rsakey), byteorder="little")
+        return dec.to_bytes(key.getHalfofKeyLength(rsakey), byteorder="little").decode('utf-8', 'ignore')
