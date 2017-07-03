@@ -1,10 +1,11 @@
 from Crypto.PublicKey import RSA
 import main
 import Crypto.Util.number as number
+import random
 import fastMod
 
 bits = 32
-message = 'ABCD'
+message = 'A'
 print("msg :",message)
 #main.saveKey(main.createKeyPair(bits))
 def checksize(keySize, messageSize):
@@ -28,8 +29,13 @@ with open('PublicKey.pem', 'rb') as file:
 
 
 """cipher"""
+def randomR(bits,n):
+    num = random.randint(1,n)
+    while(number.GCD(num,n)==1):
+        num = random.randint(1,n)
+    return num
 
-r = 3
+r = 65537
 print("r is: ",r)
 ciphertext = ciphertext*fastMod.pow_mod(r,rsakey.key.e,rsakey.key.n)
 print("cipher times r",ciphertext)
@@ -46,8 +52,8 @@ with open('PrivateKey.pem', 'rb') as file:
     print("cipher after devide by r",text)
     text = int(text)
     print("cipher after cast to int",text)
-    text = text.to_bytes(text.bit_length(), byteorder="little")
-    print("textbyte",text)
+    text = text.to_bytes(1, byteorder="little")
+    #print("textbyte",text)
     print("decryp",text.decode('utf-8', 'ignore'))
 
 """Show Debug"""
