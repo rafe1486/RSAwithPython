@@ -2,5 +2,6 @@
 *.pem
 Cipher
 cipher
+key/*.pem
 __pycache__
 __pycache__/*
