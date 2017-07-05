@@ -62,7 +62,7 @@ stringText = ""
 for strtext in decryptext :
     if strtext != '':
         strtext = int(strtext)
-        print(strtext.to_bytes(key.getKeyLength(rsakey), byteorder="little"))
+        #print(strtext.to_bytes(key.getKeyLength(rsakey), byteorder="little"))
         stringText += strtext.to_bytes(key.getKeyLength(rsakey), byteorder="little").decode("utf-8","ignore")
 print("msg after decryp (String format) :", stringText)
 

@@ -1,12 +1,11 @@
-from Crypto.PublicKey import RSA
 import include.key as key
 import include.msg as msg
 
-bits = 16
-message = '123456789100'
+bits = 128
+message = '1234'
 print("msg :",message)
 
-#key.saveKey(key.createKeyPair(bits))
+key.saveKey(key.createKeyPair(bits))
 rsakey = key.importKey('PublicKey.pem')
 keySize = rsakey.size()
 messageSize = len(message)
@@ -53,4 +52,5 @@ print("rsakey.key.n : ",rsakey.key.n)
 print("rsakey.key.p : ",rsakey.key.p)
 print("rsakey.key.q : ",rsakey.key.q)
 print("rsakey.key.u : ",rsakey.key.u)
+
 """

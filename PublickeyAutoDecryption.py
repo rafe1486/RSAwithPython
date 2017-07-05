@@ -7,21 +7,20 @@ import sys
 sys.setrecursionlimit(1000000)
 
 rsaPublicKey = key.importKey('PublicKey.pem')
-publicKeySize = rsaPublicKey.size()
+publicKeySize = key.getKeySize(rsaPublicKey)
 print("Public key size :",publicKeySize+1)
 
 """
-        
         ed = 1 mod phi(n)
         1.find phi(n)
         2.find d
-    """
+"""
 def primes(n):
     primfac = []
     d = 2
     while d*d <= n:
         while (n % d) == 0:
-            primfac.append(d)  # supposing you want multiple factors repeated
+            primfac.append(d)  
             n //= d
         d += 1
     if n > 1:
@@ -34,7 +33,7 @@ def totient(n):
     for p in primes(n):
         if p not in unique:
             unique.append(p)
-            totient -= totient//p # integer division
+            totient -= totient//p
     return totient
 
 n = rsaPublicKey.key.n
@@ -60,6 +59,7 @@ with open('cipher','rb') as text_file:
     cipherSize = len(ciphertext)
 if (msg.checkSize(rsakey, cipherSize)):
     text = rsakey.decrypt(ciphertext)
+    print(text.decode('utf-8', 'ignore'))
 else:
     keySize +=1
     keySize /=8
