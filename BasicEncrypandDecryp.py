@@ -1,8 +1,8 @@
 import include.key as key
 import include.msg as msg
 
-bits = 64
-message = '1234'
+bits = 32
+message = '12345678910'
 print("msg :",message)
 
 key.saveKey(key.createKeyPair(bits))
@@ -43,8 +43,6 @@ else:
     for ctext in  ciphertext :
         text += rsakey.decrypt(ctext)
     print(text.decode('utf-8', 'ignore'))
-print("Key Size :",keySize)
-print("Cipher Size :",cipherSize)
 print("rsakey.key.e : ",rsakey.key.e)
 print("rsakey.key.d : ",rsakey.key.d)
 print("rsakey.key.n : ",rsakey.key.n)

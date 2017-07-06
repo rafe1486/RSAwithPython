@@ -69,6 +69,3 @@ else:
     for ctext in  ciphertext :
         text += rsakey.decrypt(ctext)
     print(text.decode('utf-8', 'ignore'))
-
-print("Key Size :",keySize*8)
-print("Cipher Size :",cipherSize*8)
