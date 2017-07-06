@@ -7,7 +7,7 @@ import sys
 sys.setrecursionlimit(1000000)
 
 rsaPublicKey = key.importKey('PublicKey.pem')
-publicKeySize = key.getKeySize(rsaPublicKey)
+publicKeySize = rsaPublicKey.size()
 print("Public key size :",publicKeySize+1)
 
 """
