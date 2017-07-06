@@ -16,6 +16,7 @@ print("Public key size :",publicKeySize+1)
         2.find d
 """
 def primes(n):
+    #อธิบาย
     primfac = []
     d = 2
     while d*d <= n:

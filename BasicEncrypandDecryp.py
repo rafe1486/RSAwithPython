@@ -1,7 +1,7 @@
 import include.key as key
 import include.msg as msg
 
-bits = 32
+bits = 128
 message = '12345678910'
 print("msg :",message)
 

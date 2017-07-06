@@ -1,3 +1,2 @@
-import primefac 
-
-print(primefac.primefac(10))
+from sympy.ntheory import factorint
+print(factorint(256466780341561592028381667348416796421))

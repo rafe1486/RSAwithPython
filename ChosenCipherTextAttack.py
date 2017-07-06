@@ -3,6 +3,7 @@ import include.msg  as msg
 import Crypto.Util.number as number
 import random
 import fastMod
+import gmpy2
 
 bits = 32
 messages = 'ABCD'
