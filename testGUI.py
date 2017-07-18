@@ -1029,12 +1029,12 @@ from sympy import primefactors
 from profilehooks import profile
 
 
-#@profile
+@profile
 def pfac(n):
     prime = primefactors(n)
     print (prime[-1])
     print (prime[0])
 
 
-pfac(318961089312363542719056525207370545401)
+pfac(10)
 #pfac(84452668164652270477599670903171752642557507350970623396285463425260983229109)
