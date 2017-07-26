@@ -2,10 +2,10 @@ import include.key as key
 import include.msg as msg
 
 bits = 1024
-message = '12345678910'
+message = 'ABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZ'
 print("msg :",message)
 
-key.saveKey(key.createKeyPair(bits))
+#key.saveKey(key.createKeyPair(bits))
 rsakey = key.importKey('PublicKey.pem')
 keySize = rsakey.size()
 messageSize = len(message)
@@ -24,7 +24,8 @@ else:
         
 with open('cipher','wb') as text_file:
     text_file.write(ciphertext)
-print(ciphertext.decode("utf-8","ignore"))
+print(ciphertext)
+print("lenght of cipher text :",len(ciphertext))
 
 rsakey = key.importKey('PrivateKey.pem')
 keySize = rsakey.size()
@@ -43,9 +44,11 @@ else:
     for ctext in  ciphertext :
         text += rsakey.decrypt(ctext)
     print(text.decode('utf-8', 'ignore'))
+"""
 print("rsakey.key.e : ",rsakey.key.e)
 print("rsakey.key.d : ",rsakey.key.d)
 print("rsakey.key.n : ",rsakey.key.n)
 print("rsakey.key.p : ",rsakey.key.p)
 print("rsakey.key.q : ",rsakey.key.q)
 print("rsakey.key.u : ",rsakey.key.u)
+"""
